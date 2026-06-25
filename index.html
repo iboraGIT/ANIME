@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Poster Studio — Créateur d'affiches anime &amp; manga premium</title>
+<meta name="description" content="Créez des affiches d'anime et de manga premium, au format poster, directement dans votre navigateur. Export PNG/WEBP/JPG/PDF jusqu'en 8K, thèmes générés automatiquement depuis votre image, sans backend.">
+<meta name="keywords" content="anime, manga, affiche, poster, générateur, export PNG, design, otaku">
+<meta name="author" content="Poster Studio">
+<meta name="theme-color" content="#0A0A0C">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Poster Studio — Créateur d'affiches anime &amp; manga premium">
+<meta property="og:description" content="Générez des affiches d'anime/manga dignes d'une campagne marketing officielle. Export jusqu'en 8K, 100% navigateur, sans backend.">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Poster Studio">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Poster Studio — Créateur d'affiches anime &amp; manga premium">
+<meta name="twitter:description" content="Générez des affiches d'anime/manga dignes d'une campagne marketing officielle. Export jusqu'en 8K, 100% navigateur.">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%235E5CE6%22/><text x=%2250%22 y=%2266%22 font-size=%2256%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22>P</text></svg>">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Poster Studio",
+  "applicationCategory": "DesignApplication",
+  "operatingSystem": "Any (navigateur web)",
+  "description": "Créateur d'affiches anime et manga premium avec export haute résolution, 100% côté client.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell" id="appShell">
+
+  <header class="topbar">
+    <div class="topbar__brand">
+      <span class="topbar__mark" aria-hidden="true"></span>
+      <span class="topbar__name">Poster Studio</span>
+    </div>
+
+    <nav class="topbar__nav" role="tablist" aria-label="Navigation principale">
+      <button class="topbar__tab is-active" role="tab" aria-selected="true" data-view="studio" type="button">Studio</button>
+      <button class="topbar__tab" role="tab" aria-selected="false" data-view="collection" type="button">Collection</button>
+    </nav>
+
+    <div class="topbar__actions">
+      <button class="btn btn--ghost" id="newPosterBtn" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Nouvelle affiche</span>
+      </button>
+      <button class="btn btn--primary" id="exportTopBtn" type="button">Exporter</button>
+    </div>
+  </header>
+
+  <main class="view view--studio is-active" id="view-studio" role="tabpanel">
+
+    <section class="editor" aria-label="Éditeur de fiche">
+      <div class="editor__scroll">
+
+        <div class="editor__section">
+          <button class="editor__header" data-accordion="identity" aria-expanded="true" type="button">
+            <span>Identité</span>
+            <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="editor__body" data-panel="identity">
+            <label class="field">
+              <span class="field__label">Titre</span>
+              <input class="field__input" type="text" id="f-title" maxlength="60" placeholder="One Piece">
+            </label>
+            <label class="field">
+              <span class="field__label">Sous-titre</span>
+              <input class="field__input" type="text" id="f-subtitle" maxlength="80" placeholder="À la conquête du Grand Line">
+            </label>
+            <label class="field">
+              <span class="field__label">Synopsis</span>
+              <textarea class="field__input field__input--area" id="f-synopsis" maxlength="320" rows="4" placeholder="Résumé court et percutant…"></textarea>
+            </label>
+            <label class="field">
+              <span class="field__label">Type</span>
+              <select class="field__input" id="f-type">
+                <option>Anime</option>
+                <option>Manga</option>
+                <option>Film</option>
+                <option>OVA</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="field__label">Genres <em>(virgules)</em></span>
+              <input class="field__input" type="text" id="f-genres" placeholder="Shonen, Action, Aventure">
+            </label>
+          </div>
+        </div>
+
+        <div class="editor__section">
+          <button class="editor__header" data-accordion="visual" aria-expanded="true" type="button">
+            <span>Visuel</span>
+            <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="editor__body" data-panel="visual">
+            <label class="dropzone" id="dropzone" for="f-image">
+              <input type="file" id="f-image" accept="image/*" hidden>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V4m0 0L7 9m5-5l5 5M4 20h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="dropzone__text">Glissez une image, ou cliquez pour choisir</span>
+              <span class="dropzone__hint">JPG, PNG, WEBP — portrait recommandé</span>
+            </label>
+            <div class="theme-preview" id="themePreview" hidden>
+              <span class="theme-preview__label">Palette extraite</span>
+              <div class="theme-preview__swatches" id="themeSwatches"></div>
+            </div>
+            <label class="field">
+              <span class="field__label">Format de l'affiche</span>
+              <select class="field__input" id="f-format">
+                <option value="1500x2000">1500 × 2000 — Standard</option>
+                <option value="3000x4000" selected>3000 × 4000 — HD</option>
+                <option value="4500x6000">4500 × 6000 — Print</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="editor__section">
+          <button class="editor__header" data-accordion="meta" aria-expanded="false" type="button">
+            <span>Métadonnées</span>
+            <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="editor__body" data-panel="meta" hidden>
+            <div class="field-grid">
+              <label class="field"><span class="field__label">Épisodes</span><input class="field__input" type="number" id="f-episodes" min="0"></label>
+              <label class="field"><span class="field__label">Saisons</span><input class="field__input" type="number" id="f-seasons" min="0"></label>
+              <label class="field"><span class="field__label">Min / épisode</span><input class="field__input" type="number" id="f-minutes" min="1" value="24"></label>
+              <label class="field"><span class="field__label">Note /10</span><input class="field__input" type="number" id="f-rating" min="0" max="10" step="0.1"></label>
+              <label class="field"><span class="field__label">Classement</span><input class="field__input" type="number" id="f-ranking" min="1"></label>
+              <label class="field"><span class="field__label">Popularité %</span><input class="field__input" type="number" id="f-popularity" min="0" max="100"></label>
+            </div>
+            <label class="field"><span class="field__label">Auteur</span><input class="field__input" type="text" id="f-author"></label>
+            <label class="field"><span class="field__label">Studio</span><input class="field__input" type="text" id="f-studio"></label>
+            <div class="field-grid">
+              <label class="field"><span class="field__label">Date de sortie</span><input class="field__input" type="date" id="f-release"></label>
+              <label class="field"><span class="field__label">Statut</span>
+                <select class="field__input" id="f-status">
+                  <option>En cours</option>
+                  <option>Terminé</option>
+                  <option>Annoncé</option>
+                </select>
+              </label>
+            </div>
+            <label class="field"><span class="field__label">Personnage préféré</span><input class="field__input" type="text" id="f-character"></label>
+            <label class="field"><span class="field__label">Arc préféré</span><input class="field__input" type="text" id="f-arc"></label>
+            <label class="field"><span class="field__label">Opening préféré</span><input class="field__input" type="text" id="f-opening"></label>
+            <label class="field"><span class="field__label">Récompenses <em>(virgules)</em></span><input class="field__input" type="text" id="f-awards"></label>
+          </div>
+        </div>
+
+        <div class="editor__section">
+          <button class="editor__header" data-accordion="stats" aria-expanded="false" type="button">
+            <span>Indicateurs</span>
+            <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="editor__body" data-panel="stats" hidden id="statsBody"></div>
+        </div>
+
+        <div class="editor__section">
+          <button class="editor__header" data-accordion="badges" aria-expanded="false" type="button">
+            <span>Badges</span>
+            <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="editor__body" data-panel="badges" hidden id="badgesBody"></div>
+        </div>
+
+        <div class="editor__section">
+          <button class="editor__header" data-accordion="export" aria-expanded="false" type="button">
+            <span>Export</span>
+            <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="editor__body" data-panel="export" hidden>
+            <label class="field">
+              <span class="field__label">Résolution</span>
+              <select class="field__input" id="f-resolution">
+                <option value="1">Aperçu — taille de base</option>
+                <option value="2000">2K — Réseaux sociaux (~2000 px)</option>
+                <option value="4000" selected>4K — Ultra HD (~4000 px)</option>
+                <option value="6000">8K — Print (~6000 px, avancé)</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="field__label">Format de fichier</span>
+              <select class="field__input" id="f-filetype">
+                <option value="png">PNG (sans perte)</option>
+                <option value="webp">WEBP (qualité élevée)</option>
+                <option value="jpg">JPG haute qualité</option>
+                <option value="pdf">PDF (impression)</option>
+              </select>
+            </label>
+            <p class="export-warning" id="exportWarning" hidden>L'export 8K est exigeant pour le navigateur : prévoyez quelques secondes de calcul selon votre appareil.</p>
+            <button class="btn btn--primary btn--block" id="exportBtn" type="button">Télécharger l'affiche</button>
+            <button class="btn btn--ghost btn--block" id="saveCollectionBtn" type="button">Ajouter à ma collection</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="stage" aria-label="Aperçu de l'affiche">
+      <div class="stage__toolbar">
+        <button class="icon-btn" id="zoomOutBtn" type="button" aria-label="Zoom -">−</button>
+        <span class="stage__zoom" id="zoomLabel">100%</span>
+        <button class="icon-btn" id="zoomInBtn" type="button" aria-label="Zoom +">+</button>
+        <span class="stage__divider"></span>
+        <span class="stage__dims" id="stageDims">3000 × 4000</span>
+      </div>
+      <div class="stage__viewport" id="stageViewport">
+        <canvas id="posterCanvas" class="stage__canvas" aria-label="Affiche générée"></canvas>
+      </div>
+    </section>
+
+  </main>
+
+  <section class="view view--collection" id="view-collection" aria-label="Collection">
+
+    <div class="collection__toolbar">
+      <div class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <input type="text" id="searchInput" placeholder="Rechercher un titre, un studio, un genre…" aria-label="Recherche">
+      </div>
+
+      <div class="view-switch" role="group" aria-label="Mode d'affichage">
+        <button class="view-switch__btn is-active" data-layout="grid" aria-label="Vue grille" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/></svg>
+        </button>
+        <button class="view-switch__btn" data-layout="list" aria-label="Vue liste" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+        <button class="view-switch__btn" data-layout="posters" aria-label="Vue affiches" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="6" height="9" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="14" y="3" width="6" height="9" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="4" y="14" width="6" height="7" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="14" y="14" width="6" height="7" rx="1" stroke="currentColor" stroke-width="1.6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="filters" id="filtersBar" role="group" aria-label="Filtres">
+      <button class="chip is-active" data-filter="all" type="button">Tout</button>
+      <button class="chip" data-filter="favorites" type="button">★ Favoris</button>
+      <span class="filters__sep"></span>
+    </div>
+
+    <div class="collection__grid" id="collectionGrid" data-layout="grid"></div>
+
+    <p class="collection__empty" id="collectionEmpty" hidden>Aucun résultat. Essayez un autre mot-clé ou réinitialisez les filtres.</p>
+  </section>
+
+</div>
+
+<div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+<div class="export-overlay" id="exportOverlay" hidden>
+  <div class="export-overlay__card">
+    <div class="spinner" aria-hidden="true"></div>
+    <p id="exportOverlayText">Rendu de l'affiche en cours…</p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
